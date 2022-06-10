@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-unused-expressions */
 /** This module implements a price-time matching engine for a centralize limit
  * order book (CLOB).
  */
@@ -86,9 +86,9 @@ export class Clob {
       this.uniqueOrders.has(_order.id)
         ? this.uniqueOrders.get(_order.id).push(_order)
         : this.uniqueOrders.set(_order.id, [_order]);
-      this.buyOrders.has(_order.id)
-        ? this.buyOrders.get(_order.id).push(_order)
-        : this.buyOrders.set(_order.id, [_order]);
+      this.buyOrders.has(_order.price)
+        ? this.buyOrders.get(_order.price).push(_order)
+        : this.buyOrders.set(_order.price, [_order]);
     } else {
       const foundIndex = this.expectedBook.asks.findIndex(
         (x) => x.price === input.price,
@@ -113,13 +113,13 @@ export class Clob {
           this.uniqueOrders.set(maker.id, maker);
         }
       }
-      this.uniqueOrders.has(_order.id)
-        ? this.uniqueOrders.get(_order.id).push(_order)
-        : this.uniqueOrders.set(_order.id, [_order]);
-      this.sellOrders.has(_order.id)
-        ? this.sellOrders.get(_order.id).push(_order)
-        : this.sellOrders.set(_order.id, [_order]);
     }
+    this.uniqueOrders.has(_order.id)
+      ? this.uniqueOrders.get(_order.id).push(_order)
+      : this.uniqueOrders.set(_order.id, [_order]);
+    this.sellOrders.has(_order.price)
+      ? this.sellOrders.get(_order.price).push(_order)
+      : this.sellOrders.set(_order.price, [_order]);
     return _order;
   }
 
