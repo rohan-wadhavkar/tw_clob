@@ -21,7 +21,7 @@ describe(`${Clob.name}#${Clob.prototype.createOneOrder.name}`, () => {
     expect(order.trader).toBe(input.trader);
   });
 
-  it.skip(`executes a trade at the order price and quantity if the order prices
+  it(`executes a trade at the order price and quantity if the order prices
             and quantities are the same, dynamically updating (mutating) the returned order`, () => {
     const clob = new Clob();
     const price = 100;

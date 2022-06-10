@@ -9,6 +9,9 @@ import { Trade } from "./types/trade";
 export declare class Clob {
     private readonly logger;
     expectedBook: AggregatedBook;
+    buyOrders: Map<any, any>;
+    sellOrders: Map<any, any>;
+    uniqueOrders: Map<any, any>;
     constructor();
     /** Aggregate open orders into publicly-available price levels */
     getAggregatedBook(): AggregatedBook;

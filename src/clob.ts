@@ -23,9 +23,10 @@ export class Clob {
   };
 
   buyOrders = new Map();
-  sellOrders = new Map();
-  uniqueOrders = new Map();
 
+  sellOrders = new Map();
+
+  uniqueOrders = new Map();
 
   public constructor() {
     this.logger.debug("Instantiating");
@@ -54,11 +55,11 @@ export class Clob {
       quantityRemaining: input.quantity,
       side: input.side,
       trader: input.trader,
-      tradeIds: [],
+      tradeIds: [id],
     };
 
     if (input.side === "BUY") {
-      //update aggregatedBook
+      // update aggregatedBook
       const foundIndex = this.expectedBook.bids.findIndex(
         (x) => x.price === input.price,
       );
@@ -73,18 +74,17 @@ export class Clob {
       }
 
       if (this.sellOrders.has(input.price)) {
-        if (this.sellOrders[input.price].length > 0) {
-          _order.quantity = 0;
-          const maker = this.getOneOrder(this.sellOrders[input.price][0]);
-          maker.quantity = 0;
-          this.uniqueOrders[maker.id] = maker;
-
+        if (this.sellOrders.get(input.price).length > 0) {
+          _order.quantityRemaining = 0;
+          const maker = this.getOneOrder(this.sellOrders.get(input.price));
+          maker.quantityRemaining = 0;
+          this.uniqueOrders.set(maker.id, maker);
         }
       }
-      this.uniqueOrders[_order.id] = _order;
-
+      this.uniqueOrders.set(_order.id, _order);
+      this.buyOrders.set(_order.price, _order);
     } else {
-      const foundIndex = this.expectedBook.bids.findIndex(
+      const foundIndex = this.expectedBook.asks.findIndex(
         (x) => x.price === input.price,
       );
       if (foundIndex !== -1) {
@@ -96,6 +96,17 @@ export class Clob {
         };
         this.expectedBook.bids.push(_ask);
       }
+
+      if (this.buyOrders.has(input.price)) {
+        if (this.buyOrders.get(input.price).length > 0) {
+          _order.quantityRemaining = 0;
+          const maker = this.getOneOrder(this.buyOrders.get(input.price));
+          maker.quantityRemaining = 0;
+          this.uniqueOrders.set(maker.id, maker);
+        }
+      }
+      this.uniqueOrders.set(_order.id, _order);
+      this.sellOrders.set(_order.price, _order);
     }
     return _order;
   }
@@ -103,7 +114,7 @@ export class Clob {
   /** Load an order by its id */
   getOneOrder(orderId: string): Order {
     this.logger.debug(`Loading order with id=${orderId}`);
-    return this.uniqueOrders[orderId];
+    return this.uniqueOrders.get(orderId);
   }
 
   /** Load a trade by its id */
