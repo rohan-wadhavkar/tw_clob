@@ -76,11 +76,11 @@ export class Clob {
       if (this.sellOrders.has(input.price)) {
         if (this.sellOrders.get(input.price).length > 0) {
           _order.quantityRemaining = 0;
-          const maker = this.sellOrders.get(input.price);
-          maker[0].quantityRemaining = 0;
+          const maker = this.sellOrders.get(input.price)[0];
+          maker.quantityRemaining = 0;
           this.sellOrders.get(input.price).shift();
-          this.sellOrders
-          this.uniqueOrders.set(maker.id, maker[0]);
+          this.sellOrders.get(input.price).unshift(maker);
+          this.uniqueOrders.set(maker.id, maker);
         }
       }
       this.uniqueOrders.has(_order.id) ? this.uniqueOrders.get(_order.id).push(_order) : this.uniqueOrders.set(_order.id, [_order]);
@@ -102,8 +102,10 @@ export class Clob {
       if (this.buyOrders.has(input.price)) {
         if (this.buyOrders.get(input.price).length > 0) {
           _order.quantityRemaining = 0;
-          const maker = this.getOneOrder(this.buyOrders.get(input.price));
+          const maker = this.buyOrders.get(input.price)[0];
           maker.quantityRemaining = 0;
+          this.buyOrders.get(input.price).shift();
+          this.buyOrders.get(input.price).unshift(maker);
           this.uniqueOrders.set(maker.id, maker);
         }
       }
