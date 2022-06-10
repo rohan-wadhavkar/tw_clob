@@ -76,13 +76,15 @@ export class Clob {
       if (this.sellOrders.has(input.price)) {
         if (this.sellOrders.get(input.price).length > 0) {
           _order.quantityRemaining = 0;
-          const maker = this.getOneOrder(this.sellOrders.get(input.price));
-          maker.quantityRemaining = 0;
-          this.uniqueOrders.set(maker.id, maker);
+          const maker = this.sellOrders.get(input.price);
+          maker[0].quantityRemaining = 0;
+          this.sellOrders.get(input.price).shift();
+          this.sellOrders
+          this.uniqueOrders.set(maker.id, maker[0]);
         }
       }
-      this.uniqueOrders.set(_order.id, _order);
-      this.buyOrders.set(_order.price, _order);
+      this.uniqueOrders.has(_order.id) ? this.uniqueOrders.get(_order.id).push(_order) : this.uniqueOrders.set(_order.id, [_order]);
+      this.buyOrders.has(_order.id) ? this.buyOrders.get(_order.id).push(_order) : this.buyOrders.set(_order.id, [_order]);
     } else {
       const foundIndex = this.expectedBook.asks.findIndex(
         (x) => x.price === input.price,
@@ -105,8 +107,8 @@ export class Clob {
           this.uniqueOrders.set(maker.id, maker);
         }
       }
-      this.uniqueOrders.set(_order.id, _order);
-      this.sellOrders.set(_order.price, _order);
+      this.uniqueOrders.has(_order.id) ? this.uniqueOrders.get(_order.id).push(_order) : this.uniqueOrders.set(_order.id, [_order]);
+      this.sellOrders.has(_order.id) ? this.sellOrders.get(_order.id).push(_order) : this.sellOrders.set(_order.id, [_order]);
     }
     return _order;
   }
