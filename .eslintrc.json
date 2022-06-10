@@ -1,0 +1,16 @@
+{
+  "extends": [
+    "eslint-config-carnesen/node.eslintrc.json"
+  ],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": false,
+        "trailingComma": "all",
+        "useTabs": false,
+        "endOfLine": "auto"
+      }
+    ]
+  }
+}
