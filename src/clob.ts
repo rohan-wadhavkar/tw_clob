@@ -28,6 +28,9 @@ export class Clob {
 
   uniqueOrders = new Map();
 
+  uniqueTrades = new Map();
+
+
   public constructor() {
     this.logger.debug("Instantiating");
   }
@@ -132,6 +135,6 @@ export class Clob {
   /** Load a trade by its id */
   getOneTrade(tradeId: string): Trade {
     this.logger.debug(`Loading trade with id=${tradeId}`);
-    throw new NotYetImplementedError();
+    throw this.uniqueTrades.get(tradeId);
   }
 }
