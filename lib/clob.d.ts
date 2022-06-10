@@ -8,6 +8,7 @@ import { Trade } from "./types/trade";
 /** Single-ticket CLOB order book and trade execution engine */
 export declare class Clob {
     private readonly logger;
+    expectedBook: AggregatedBook;
     constructor();
     /** Aggregate open orders into publicly-available price levels */
     getAggregatedBook(): AggregatedBook;

@@ -3,7 +3,7 @@ import { OrderInput } from "../types/order-input";
 import { SIDE_BUY, SIDE_SELL } from "../types/side";
 
 describe(`${Clob.name}#${Clob.prototype.createOneOrder.name}`, () => {
-  it.skip("returns a CLOB order with a generated createdAt, id and price, quantity, side, trader copied from the input", () => {
+  it("returns a CLOB order with a generated createdAt, id and price, quantity, side, trader copied from the input", () => {
     const input: OrderInput = {
       side: SIDE_BUY,
       price: 100,

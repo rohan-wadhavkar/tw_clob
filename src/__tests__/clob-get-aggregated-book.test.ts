@@ -4,7 +4,7 @@ import { OrderInput } from "../types/order-input";
 import { SIDE_BUY } from "../types/side";
 
 describe(`${Clob.name}#${Clob.prototype.getAggregatedBook.name}`, () => {
-  it.skip("aggregates all the orders into price levels", () => {
+  it("aggregates all the orders into price levels", () => {
     const clob = new Clob();
     const price = 100;
     const quantity = 225;
