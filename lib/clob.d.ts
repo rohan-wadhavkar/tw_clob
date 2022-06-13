@@ -12,6 +12,7 @@ export declare class Clob {
     buyOrders: Map<any, any>;
     sellOrders: Map<any, any>;
     uniqueOrders: Map<any, any>;
+    uniqueTrades: Map<any, any>;
     constructor();
     /** Aggregate open orders into publicly-available price levels */
     getAggregatedBook(): AggregatedBook;
@@ -24,5 +25,6 @@ export declare class Clob {
     getOneOrder(orderId: string): Order;
     /** Load a trade by its id */
     getOneTrade(tradeId: string): Trade;
+    createNewTrade(price: number, quantity: number, buyOrderId: string, sellOrderId: string): void;
 }
 //# sourceMappingURL=clob.d.ts.map

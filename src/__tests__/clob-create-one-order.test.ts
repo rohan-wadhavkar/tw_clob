@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-expressions, no-console */
+
 import { Clob } from "../clob";
 import { OrderInput } from "../types/order-input";
 import { SIDE_BUY, SIDE_SELL } from "../types/side";
@@ -55,7 +57,7 @@ describe(`${Clob.name}#${Clob.prototype.createOneOrder.name}`, () => {
     expect(trade.sellOrderId).toBe(sellOrder.id);
   });
 
-  it.skip("executes a trade at the maker price if the order prices are different but overlapping", () => {
+  it("executes a trade at the maker price if the order prices are different but overlapping", () => {
     const clob = new Clob();
     const price = 100;
     const quantity = 225;
@@ -76,7 +78,7 @@ describe(`${Clob.name}#${Clob.prototype.createOneOrder.name}`, () => {
     expect(trade.price).toBe(buyOrder.price);
   });
 
-  it.skip("does not execute trades if there is no overlap in price", () => {
+  it("does not execute trades if there is no overlap in price", () => {
     const clob = new Clob();
     const buyOrder = clob.createOneOrder({
       side: SIDE_BUY,
@@ -96,7 +98,7 @@ describe(`${Clob.name}#${Clob.prototype.createOneOrder.name}`, () => {
     expect(buyOrder.quantityRemaining).toBe(buyOrder.quantity);
   });
 
-  it.skip("executes a trade for a partial quantity if the order quantities are different", () => {
+  it("executes a trade for a partial quantity if the order quantities are different", () => {
     const clob = new Clob();
     const sellOrderExcessQuantity = 25;
     const price = 100;
@@ -121,7 +123,7 @@ describe(`${Clob.name}#${Clob.prototype.createOneOrder.name}`, () => {
     expect(trade.quantity).toBe(quantity);
   });
 
-  it.skip("does not match orders from a trader with their own orders", () => {
+  it("does not match orders from a trader with their own orders", () => {
     const clob = new Clob();
     const price = 100;
     const quantity = 225;
@@ -142,7 +144,7 @@ describe(`${Clob.name}#${Clob.prototype.createOneOrder.name}`, () => {
     expect(sellOrder.quantityRemaining).toBe(quantity);
   });
 
-  it.skip("executes trades for the oldest order first at a price level", () => {
+  it("executes trades for the oldest order first at a price level", () => {
     const clob = new Clob();
     const price = 100;
     const quantity = 100;
@@ -171,7 +173,7 @@ describe(`${Clob.name}#${Clob.prototype.createOneOrder.name}`, () => {
     expect(buyOrder1.quantityRemaining).toBe(quantity);
   });
 
-  it.skip("allows a single large order to 'sweep the book'", () => {
+  it("allows a single large order to 'sweep the book'", () => {
     const clob = new Clob();
     const price = 100;
     const quantity = 100;

@@ -1,5 +1,5 @@
 {
-  "extends": "@carnesen/tsconfig/tsconfig.json",
+  "extends": "/Users/rohanwadhavkar/Documents/tradewebInterview/package/node_modules/@carnesen/tsconfig/tsconfig.json",
   "include": [
     "src",
   ],
